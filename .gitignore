@@ -1,2 +1,4 @@
 descriptors/
 MSRC_ObjCategImageDatabase_v2/
+__pycache__/
+.DS_Store
