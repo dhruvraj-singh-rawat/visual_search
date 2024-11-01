@@ -16,4 +16,5 @@ def calculate_histogram_bins(image, Q):
     green_hist = np.bincount(green_channel.flatten(), minlength=Q)
     blue_hist = np.bincount(blue_channel.flatten(), minlength=Q)
 
-    return red_hist, green_hist, blue_hist
+    overall_bin = red_hist * (Q**2) + green_hist * Q + blue_hist
+    return overall_bin

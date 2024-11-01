@@ -3,10 +3,12 @@ import numpy as np
 import cv2
 import scipy.io as sio
 from extractRandom import extractRandom
+from cvpr_computehist import calculate_histogram_bins
 
 DATASET_FOLDER = 'MSRC_ObjCategImageDatabase_v2'
 OUT_FOLDER = 'descriptors'
 OUT_SUBFOLDER = 'globalRGBhisto'
+Q = 4 # Number of Quantization 
 
 # Ensure the output directory exists
 os.makedirs(os.path.join(OUT_FOLDER, OUT_SUBFOLDER), exist_ok=True)
@@ -20,7 +22,7 @@ for filename in os.listdir(os.path.join(DATASET_FOLDER, 'Images')):
         fout = os.path.join(OUT_FOLDER, OUT_SUBFOLDER, filename.replace('.bmp', '.mat'))
         
         # Call extractRandom (or another feature extraction function) to get the descriptor
-        F = extractRandom(img) ## <<-- This needs to be implemented
+        F = calculate_histogram_bins(img,Q) ##  Implemented Histogram Bins 
         
         # Save the descriptor to a .mat file
         sio.savemat(fout, {'F': F})
