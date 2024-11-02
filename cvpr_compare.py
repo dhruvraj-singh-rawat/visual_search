@@ -1,6 +1,6 @@
 import numpy as np
 
-def cvpr_compare(F1, F2,type='L2'):
+def cvpr_compare(F1, F2,type):
     # This function compares F1 to F2 - i.e. compute the distance
     # between the two descriptors
     # extended the capacity of this function to calc both L1 and L2 distance 
