@@ -3,7 +3,7 @@ import numpy as np
 # Takes normalised image between 0.0 - 1.0 
 # Q is number of Bin 
 
-def calculate_histogram_bins(image, Q):
+def compute_colour_histogram(image, Q):
     binned_image = np.clip(np.floor(Q * image).astype(int), 0, Q - 1)
 
     # Split the channels
