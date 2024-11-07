@@ -54,9 +54,10 @@ def color_texture_grid_descriptor(image, grid_size=(4, 4), color_bins=8, sobel_b
     cell_height, cell_width = height // grid_size[0], width // grid_size[1]
     
     # Initialize lists to store descriptors for color histograms and Sobel features
-    color_descriptors = []
-    sobel_descriptors = []
-    
+    grid_overall_descriptor = []
+    overall_color_angle_hist = [] 
+    overall_color_mag_hist = []
+
     # Iterate over grid cells
     for row in range(grid_size[0]):
         for col in range(grid_size[1]):
@@ -67,7 +68,6 @@ def color_texture_grid_descriptor(image, grid_size=(4, 4), color_bins=8, sobel_b
             
             # Calculate color histogram descriptor for the grid cell
             color_hist_descriptor = colour_histogram(grid_cell, color_bins)
-            color_descriptors.append(color_hist_descriptor)
 
             # Calculate Sobel descriptors for the grid cell
             gray_grid_cell = cv2.cvtColor(grid_cell, cv2.COLOR_RGB2GRAY)
@@ -79,16 +79,22 @@ def color_texture_grid_descriptor(image, grid_size=(4, 4), color_bins=8, sobel_b
             
             # Concatenate angle and magnitude histograms to form Sobel descriptor
             sobel_descriptor = np.concatenate((angle_hist, magnitude_hist))
-            sobel_descriptors.append(sobel_descriptor)
-
-    # Combine all color histograms and Sobel descriptors for the entire image
-    overall_color_descriptor = np.concatenate(color_descriptors)
-    overall_sobel_descriptor = np.concatenate(sobel_descriptors)
-    
+            # Concatenate color and Sobel descriptors
+            grid_overall_descriptor.append(np.concatenate([color_hist_descriptor, sobel_descriptor]))
+            overall_color_angle_hist.append(np.concatenate([color_hist_descriptor, angle_hist]))
+            overall_color_mag_hist.append(np.concatenate([color_hist_descriptor, magnitude_hist]))
+   
     # Final descriptor: Concatenate color and Sobel descriptors
-    overall_descriptor = np.concatenate((overall_color_descriptor, overall_sobel_descriptor))
-    
-    return overall_descriptor
+    overall_descriptor = np.array(grid_overall_descriptor) 
+    overall_descriptor.reshape(overall_descriptor.shape[0], -1) # Flatten 2nd & 3rd Dimension
+
+    overall_color_angle_hist = np.array(overall_color_angle_hist) 
+    overall_color_angle_hist.reshape(overall_color_angle_hist.shape[0], -1) # Flatten 2nd & 3rd Dimension
+
+    overall_color_mag_hist = np.array(overall_color_mag_hist) 
+    overall_color_mag_hist.reshape(overall_color_mag_hist.shape[0], -1) # Flatten 2nd & 3rd Dimension
+
+    return overall_descriptor,overall_color_angle_hist,overall_color_mag_hist
 
 def gabor_descriptor(image):
     # Apply Gabor filters with different orientations and frequencies
@@ -100,13 +106,13 @@ def gabor_descriptor(image):
         gabor_features.append(np.mean(filtered_img))
     return np.array(gabor_features)
 
-from skimage.feature import greycomatrix, greycoprops
+from skimage.feature import graycomatrix, graycoprops
 def haralick_features(image):
     gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    glcm = greycomatrix(gray_img, [1], [0, np.pi/4, np.pi/2, 3*np.pi/4], 256, symmetric=True, normed=True)
-    contrast = greycoprops(glcm, 'contrast')
-    correlation = greycoprops(glcm, 'correlation')
-    energy = greycoprops(glcm, 'energy')
+    glcm = graycomatrix(gray_img, [1], [0, np.pi/4, np.pi/2, 3*np.pi/4], 256, symmetric=True, normed=True)
+    contrast = graycoprops(glcm, 'contrast')
+    correlation = graycoprops(glcm, 'correlation')
+    energy = graycoprops(glcm, 'energy')
     return np.concatenate((contrast.flatten(), correlation.flatten(), energy.flatten()))
 
 
