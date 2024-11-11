@@ -86,13 +86,8 @@ def color_texture_grid_descriptor(image, grid_size=(4, 4), color_bins=8, sobel_b
    
     # Final descriptor: Concatenate color and Sobel descriptors
     overall_descriptor = np.array(grid_overall_descriptor) 
-    overall_descriptor.reshape(overall_descriptor.shape[0], -1) # Flatten 2nd & 3rd Dimension
-
     overall_color_angle_hist = np.array(overall_color_angle_hist) 
-    overall_color_angle_hist.reshape(overall_color_angle_hist.shape[0], -1) # Flatten 2nd & 3rd Dimension
-
     overall_color_mag_hist = np.array(overall_color_mag_hist) 
-    overall_color_mag_hist.reshape(overall_color_mag_hist.shape[0], -1) # Flatten 2nd & 3rd Dimension
 
     return overall_descriptor,overall_color_angle_hist,overall_color_mag_hist
 
