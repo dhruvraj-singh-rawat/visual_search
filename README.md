@@ -36,7 +36,18 @@ Digital image collections are typically searched using textual descriptions, whi
 git clone <repository_url>
 cd visual-search-engine```
 
-
+```
 2. Install required libraries:
 
 ```pip install numpy opencv-python scikit-learn scipy matplotlib notebook```
+
+3. Run experiments and visual search via Jupyter notebook:
+jupyter notebook "Coursework - Visual Search.ipynb"
+
+##  📈 Results
+Demonstrated effective image retrieval with robust accuracy validated through comprehensive experimentation and detailed precision-recall analysis.
+##  🙌 Acknowledgments
+University of Surrey
+Prof. Miroslaw Bober for guidance and coursework structure.
+
+
