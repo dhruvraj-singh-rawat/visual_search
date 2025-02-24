@@ -42,7 +42,7 @@ cd visual-search-engine```
 ```pip install numpy opencv-python scikit-learn scipy matplotlib notebook```
 
 3. Run experiments and visual search via Jupyter notebook:
-jupyter notebook "Coursework - Visual Search.ipynb"
+```jupyter notebook "Coursework - Visual Search.ipynb"```
 
 ##  📈 Results
 Demonstrated effective image retrieval with robust accuracy validated through comprehensive experimentation and detailed precision-recall analysis.
