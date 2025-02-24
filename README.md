@@ -34,11 +34,9 @@ Digital image collections are typically searched using textual descriptions, whi
 1. Clone the repository:
 ```bash
 git clone <repository_url>
-cd visual-search-engine ```
+cd visual-search-engine```
 
 
 2. Install required libraries:
 
-```
-pip install numpy opencv-python scikit-learn scipy matplotlib notebook
-```
+```pip install numpy opencv-python scikit-learn scipy matplotlib notebook```
