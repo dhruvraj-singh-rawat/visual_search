@@ -38,6 +38,7 @@ cd visual-search-engine ```
 
 
 2. Install required libraries:
+
 ```
 pip install numpy opencv-python scikit-learn scipy matplotlib notebook
 ```
